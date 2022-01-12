@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
+        android:id="@+id/layout_item_recycle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/holo_red_dark">

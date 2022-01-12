@@ -50,7 +50,7 @@ public class MyWords extends AppCompatActivity implements ItemTouchHelperListene
         rcvHighlight.setLayoutManager(linearLayoutManager);
 
         mListHighlight = getListHighlight();
-        adapter = new HighlightAdapter(mListHighlight);
+        adapter = new HighlightAdapter(this, mListHighlight);
         rcvHighlight.setAdapter(adapter);
 
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);

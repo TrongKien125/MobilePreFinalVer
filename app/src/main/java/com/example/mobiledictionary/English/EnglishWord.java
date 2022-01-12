@@ -1,6 +1,8 @@
 package com.example.mobiledictionary.English;
 
-public class EnglishWord {
+import java.io.Serializable;
+
+public class EnglishWord implements Serializable {
     private int id;
     private String word;
     private String meaning;

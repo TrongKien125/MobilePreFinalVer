@@ -1,15 +1,21 @@
 package com.example.mobiledictionary.Highlight;
 
+import android.app.NotificationChannel;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 //import com.example.mobiledictionary.EnglishController.EnglishWordHelper;
+import com.example.mobiledictionary.Notification.NotificationWord;
 import com.example.mobiledictionary.WordHelper.WordHelper;
 import com.example.mobiledictionary.English.EnglishWord;
 import com.example.mobiledictionary.R;
@@ -18,8 +24,10 @@ import java.util.List;
 
 public class HighlightAdapter extends RecyclerView.Adapter<HighlightAdapter.HighlightViewHolder>{
     private List<EnglishWord> mListHighlight;
+    private Context mContext;
 
-    public HighlightAdapter(List<EnglishWord> mListHighlight) {
+    public HighlightAdapter(Context context, List<EnglishWord> mListHighlight) {
+        this.mContext =  context;
         this.mListHighlight = mListHighlight;
     }
 
@@ -32,11 +40,25 @@ public class HighlightAdapter extends RecyclerView.Adapter<HighlightAdapter.High
 
     @Override
     public void onBindViewHolder(@NonNull HighlightViewHolder holder, int position) {
-        EnglishWord englishWord = mListHighlight.get(position);
+        final EnglishWord englishWord = mListHighlight.get(position);
         if(englishWord == null) {
             return;
         }
         holder.myword.setText(englishWord.getWord());
+        holder.foreground.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickGoToNotification(englishWord);
+            }
+        });
+    }
+
+    private void onClickGoToNotification(EnglishWord englishWord) {
+        Intent intent = new Intent(mContext, NotificationWord.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("object_englishWord", englishWord);
+        intent.putExtra("Serializable", englishWord);
+        mContext.startActivity(intent);
     }
 
     @Override

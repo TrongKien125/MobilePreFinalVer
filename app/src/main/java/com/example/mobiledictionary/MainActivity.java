@@ -26,6 +26,7 @@ import com.example.mobiledictionary.EnglishController.WordController;
 import com.example.mobiledictionary.Highlight.MyWords;
 import com.example.mobiledictionary.Notification.NotificationWord;
 import com.example.mobiledictionary.Notification.Receiver;
+import com.example.mobiledictionary.TranslateOnline.TranslateOnline;
 import com.example.mobiledictionary.Vietnamese.VietEng;
 import com.example.mobiledictionary.WordHelper.WordHelper;
 
@@ -34,6 +35,8 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
+    private WordHelper englishWordHelper = new WordHelper(this,
+            "TuDienSqlite", null, 1);
     private static final String TAG = "MainActivity";
     protected int id;
     protected EditText search;
@@ -80,12 +83,21 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("minSetting", minPos);
         editor.apply();
 
-//        highlightWordHelper.CreateData("VietEngDemo");
-//        highlightWordHelper.InsertData("VietEngDemo","xin chao","hi");
-//        highlightWordHelper.InsertData("VietEngDemo","xin chao 3","hello");
-//        highlightWordHelper.InsertData("VietEngDemo","dog","cho");
-//        highlightWordHelper.InsertData("VietEngDemo","cat","meo");
-//        highlightWordHelper.InsertData("VietEngDemo","tot","goodbye");
+
+        highlightWordHelper.CreateData("VietEngDemo");
+        highlightWordHelper.InsertData("VietEngDemo","xin chao","hi");
+        highlightWordHelper.InsertData("VietEngDemo","xin chao 3","hello");
+        highlightWordHelper.InsertData("VietEngDemo","dog","cho");
+        highlightWordHelper.InsertData("VietEngDemo","cat","meo");
+        highlightWordHelper.InsertData("VietEngDemo","tot","goodbye");
+              englishWordHelper.CreateData("NoiDung");
+      englishWordHelper.InsertData("NoiDung","hi","xin chao");
+//      englishWordHelper.InsertData("NoiDung","hello","xin chao 2");
+//      englishWordHelper. InsertData("NoiDung","cat","meo");
+//      englishWordHelper.InsertData("NoiDung","dog","cho");
+//      englishWordHelper.InsertData("NoiDung", "item","trang bi");
+        //tìm kiếm từ vựng
+
         View.OnClickListener handler = new View.OnClickListener(){
             public void onClick(View v) {
                 switch (v.getId()) {
@@ -104,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.bCaiDat:
                         openSetting();
                         break;
+                    case R.id.bDichVB:
+                        openTranslateOnl();
+                        break;
                 }
             }
         };
@@ -112,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.bTuCuaBan).setOnClickListener(handler);
         findViewById(R.id.bVietAnh).setOnClickListener(handler);
         findViewById(R.id.bCaiDat).setOnClickListener(handler);
+        findViewById(R.id.bDichVB).setOnClickListener(handler);
         //noi dung va tieu de notification
         List<EnglishWord> mListHighlight =
                 highlightWordHelper.getHighlightList("NoiDung","VietEngDemo");
@@ -166,6 +182,11 @@ public class MainActivity extends AppCompatActivity {
     public void openSetting() {
         Intent intent = new Intent(this, Setting.class);
         Log.d("opensetting", "open setting");
+        startActivity(intent);
+    }
+
+    public void openTranslateOnl(){
+        Intent intent = new Intent(this, TranslateOnline.class);
         startActivity(intent);
     }
 

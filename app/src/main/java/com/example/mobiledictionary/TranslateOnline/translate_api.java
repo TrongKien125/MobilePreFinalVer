@@ -1,4 +1,4 @@
-package com.rashid.app.languagetranslation;
+package com.example.mobiledictionary.TranslateOnline;
 
 import android.os.AsyncTask;
 import android.util.Log;

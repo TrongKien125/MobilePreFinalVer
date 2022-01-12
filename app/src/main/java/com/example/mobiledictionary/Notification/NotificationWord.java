@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mobiledictionary.English.EnglishWord;
 import com.example.mobiledictionary.R;
 
 import org.w3c.dom.Text;
@@ -27,7 +28,18 @@ public class NotificationWord extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_notification);
+//        if (bundle == null) {
+//            return;
+//        }
+//        EnglishWord englishWord = (EnglishWord) bundle.get("object_englishWord");
         Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null){
+
+            EnglishWord englishWord = (EnglishWord) bundle.getSerializable("Serializable");
+            wordField.setText(englishWord.getWord());
+            meaningField.setText(englishWord.getMeaning());
+        }
         wordField = findViewById(R.id.edittext);
         meaningField = findViewById(R.id.meaning);
         SharedPreferences sharedPref = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
@@ -35,7 +47,6 @@ public class NotificationWord extends AppCompatActivity {
         String meaningReceive = sharedPref.getString("hlMean", "");
         wordField.setText(wordReceive);
         meaningField.setText(meaningReceive);
-
     }
 }
 
